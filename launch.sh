@@ -13,7 +13,8 @@ aws autoscaling create-auto-scaling-group --auto-scaling-group-name Project1-aut
 aws autoscaling put-scaling-policy --auto-scaling-group-name Project1-auto-scaling-group-2 --policy-name scalingpolicytest --scaling-adjustment 1 --adjustment-type ExactCapacity
 Arn=$(aws sns create-topic --name mp2)
 aws sns subscribe --topic-arn $Arn --protocol email --notification-endpoint nandini9590@gmail.com
-aws sns set-topic-attributes --topic-arn $Arn --attribute-name DisplayName --attribute-value mp2 
+aws sns set-topic-attributes --topic-arn $Arn --attribute-name DisplayName --attribute-value mp2
+aws sns publish --topic-arn $Arn --message "Watch your Notifications" 
 aws cloudwatch put-metric-alarm --alarm-name Cloudwatchalarm --metric-name Cloudwatch --namespace AWS/EC2 --statistic Average --period 60 --threshold 30 --comparison-operator GreaterThanOrEqualToThreshold --dimensions "Name=AutoScalingGroup,Value=Project1-auto-scaling-group-2" --evaluation-periods 1 --alarm-actions arn:aws:autoscaling:us-west-2:089423386606:scalingPolicy:cc88d707-2094-4129-9525-f91079eec50f:autoScalingGroupName/Project1-auto-scaling-group-2:policyName/scalingpolicytest
 #aws rds create-db-instance --db-name Project1db --db-instance-identifier Project1db --db-instance-class db.t2.micro --engine MySql --allocated-storage 20 --master-username nandini --master-user-password nandinipwd
 #aws rds create-db-instance-read-replica --db-instance-identifier Project1readonly --source-db-instance-identifier Project1db --db-instance-class db.t2.micro 
